@@ -1,0 +1,24 @@
+{
+  "name": "platinum-travel-site-files",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tumax89/Platinum-travel-site1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tumax89/Platinum-travel-site1/issues"
+  },
+  "homepage": "https://github.com/Tumax89/Platinum-travel-site1#readme",
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "normalize": "^0.3.1"
+  }
+}
