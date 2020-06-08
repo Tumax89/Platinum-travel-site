@@ -18,9 +18,10 @@
     color: $mainBlue;
     margin: 0;
     font-size: 2rem;
+    padding-top: 60px;
 
     @mixin atSmall {
-      font-size: 4.8rem;
+      font-size: 4.5rem;
     }
   }
   &__subtitle {
