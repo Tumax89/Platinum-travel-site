@@ -1,8 +1,11 @@
 import throttle from "lodash/throttle";
+import debounce from "lodash/debounce";
 
 class RevealOnScroll {
-  constructor() {
-    this.itemsToReveal = document.querySelectorAll(".feature-item");
+  constructor(els, revealPoint) {
+    this.revealPoint = revealPoint;
+    this.itemsToReveal = els;
+    this.browserHeight = window.innerHeight;
     this.hideInitially();
     this.scrollThrottle = throttle(this.calcCaller, 200).bind(this);
     this.events();
@@ -10,6 +13,13 @@ class RevealOnScroll {
 
   events() {
     window.addEventListener("scroll", this.scrollThrottle);
+    window.addEventListener(
+      "resize",
+      debounce(() => {
+        console.log("Browser-ийг resize хийж байна");
+        this.browserHeight = window.innerHeight;
+      }, 300)
+    );
   }
 
   calcCaller() {
@@ -21,14 +31,17 @@ class RevealOnScroll {
     });
   }
   calculateIfScrolledTo(el) {
-    let scrollPercent =
-      (el.getBoundingClientRect().y / window.innerHeight) * 100;
+    if (window.scrollY + this.browserHeight > el.offsetTop) {
+      console.log("Тооцоолол хийгдэж байна.");
+      let scrollPercent =
+        (el.getBoundingClientRect().y / this.browserHeight) * 100;
 
-    if (scrollPercent < 75) {
-      el.classList.add("reveal-item--is-visible");
-      el.isRevealed = true;
-      if (el.isLastItem) {
-        window.removeEventListener("scroll", this.scrollThrottle);
+      if (scrollPercent < this.revealPoint) {
+        el.classList.add("reveal-item--is-visible");
+        el.isRevealed = true;
+        if (el.isLastItem) {
+          window.removeEventListener("scroll", this.scrollThrottle);
+        }
       }
     }
   }
