@@ -13,7 +13,7 @@ document.querySelectorAll(".open-modal").forEach((el) => {
   el.addEventListener("click", (e) => {
     e.preventDefault();
     if (typeof modal == "undefined") {
-      import("./modules/Modal")
+      import(/*webpackChunkName: "modal" */ "./modules/Modal")
         .then((x) => {
           modal = new x.default();
           setTimeout(() => modal.openModal(), 20);
