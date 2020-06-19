@@ -1,6 +1,36 @@
+import Axios from "axios";
+
 class ClientArea {
   constructor() {
     this.injectHtML();
+    this.form = document.querySelector(".client-area__form");
+    this.field = document.querySelector(".client-area__input");
+    this.contentArea = document.querySelector(".client-area__content-area");
+    this.events();
+  }
+
+  events() {
+    this.form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this.sendRequest();
+    });
+  }
+
+  sendRequest() {
+    Axios.post(
+      "https://clever-wiles-1f6363.netlify.app/.netlify/functions/secret-page",
+      { password: this.field.value }
+    )
+      .then((response) => {
+        this.form.remove();
+        this.contentArea.innerHTML = response.data;
+      })
+
+      .catch(() => {
+        this.contentArea.innerHTML = `<p class="client-area__error">Таны оруулсан нууц үг буруу байна. Дахин оролдоно уу!</p>`;
+        this.field.value = "";
+        this.field.focus();
+      });
   }
 
   injectHtML() {
